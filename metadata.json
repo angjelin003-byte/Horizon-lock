@@ -1,0 +1,7 @@
+{
+  "name": "Galaxy S26 Horizon Lock Camera",
+  "description": "GitHub repository and interactive Android configuration studio for Samsung Galaxy S26 Horizon Lock camera stabilization.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
