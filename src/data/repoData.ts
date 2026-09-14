@@ -588,6 +588,74 @@ horizonEngine.initialize(
 `
   },
   {
+    name: 'scripts',
+    path: 'scripts',
+    type: 'folder',
+    children: [
+      {
+        name: 'build_apk.sh',
+        path: 'scripts/build_apk.sh',
+        type: 'file',
+        size: '1.1 KB',
+        content: `#!/usr/bin/env bash
+# =====================================================================
+# Samsung Galaxy S26 Horizon Lock Camera - Gradle Build Script
+# =====================================================================
+set -e
+
+echo "=================================================="
+echo "Building Samsung Galaxy S26 Horizon Lock Camera APK"
+echo "=================================================="
+
+if [ ! -f "./gradlew" ]; then
+    echo "Error: gradlew not found in root directory."
+    exit 1
+fi
+
+chmod +x gradlew
+
+echo "Running Gradle clean and assembleDebug..."
+./gradlew clean assembleDebug --stacktrace
+
+echo "=================================================="
+echo "SUCCESS! Debug APK generated at:"
+echo "app/build/outputs/apk/debug/app-debug.apk"
+echo "=================================================="
+`
+      },
+      {
+        name: 'install_device.sh',
+        path: 'scripts/install_device.sh',
+        type: 'file',
+        size: '850 B',
+        content: `#!/usr/bin/env bash
+# =====================================================================
+# ADB Installation Script for Android Device / Samsung S26
+# =====================================================================
+set -e
+
+echo "Checking connected Android devices via ADB..."
+adb devices
+
+APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+
+if [ ! -f "$APK_PATH" ]; then
+    echo "APK not found at $APK_PATH. Please run scripts/build_apk.sh first."
+    exit 1
+fi
+
+echo "Installing S26 Horizon Lock Camera APK onto device..."
+adb install -r "$APK_PATH"
+
+echo "=================================================="
+echo "Installation complete! Open the app on your Android device"
+echo "and grant Camera & Audio permissions to start shooting."
+echo "=================================================="
+`
+      }
+    ]
+  },
+  {
     name: 'LICENSE',
     path: 'LICENSE',
     type: 'file',
