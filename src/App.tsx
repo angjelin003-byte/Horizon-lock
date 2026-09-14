@@ -10,6 +10,7 @@ import { CameraSimulator } from './components/CameraSimulator';
 import { AICameraConfigurator } from './components/AICameraConfigurator';
 import { ReadmeView } from './components/ReadmeView';
 import { IssuesView } from './components/IssuesView';
+import { ExportView } from './components/ExportView';
 import { INITIAL_FILES, INITIAL_COMMITS, INITIAL_ISSUES } from './data/repoData';
 import { Smartphone, Sparkles, ShieldCheck, Download, CheckCircle2 } from 'lucide-react';
 
@@ -70,6 +71,10 @@ export default function App() {
 
         {(activeTab === 'issues' || activeTab === 'pulls') && (
           <IssuesView issues={INITIAL_ISSUES} />
+        )}
+
+        {activeTab === 'export' && (
+          <ExportView onDownloadZip={handleDownloadApk} />
         )}
       </main>
 

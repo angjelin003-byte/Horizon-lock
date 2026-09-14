@@ -165,6 +165,19 @@ export const Header: React.FC<HeaderProps> = ({
           <span>Pull Requests</span>
           <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300">2</span>
         </button>
+
+        <button
+          onClick={() => setActiveTab('export')}
+          className={`flex items-center gap-2 py-3 px-4 border-b-2 font-medium transition-colors whitespace-nowrap ${
+            activeTab === 'export' 
+              ? 'border-emerald-500 text-emerald-400 bg-emerald-950/20' 
+              : 'border-transparent text-slate-400 hover:text-slate-200 hover:border-slate-700'
+          }`}
+        >
+          <Smartphone className="w-4 h-4 text-emerald-400" />
+          <span>Mobile / Export</span>
+          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Easy</span>
+        </button>
       </div>
     </header>
   );
