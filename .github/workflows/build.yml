@@ -25,11 +25,13 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew || true
+    - name: Install System Gradle
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gradle
 
-    - name: Build Debug APK with Gradle Wrapper
-      run: ./gradlew assembleDebug --stacktrace
+    - name: Build Debug APK with System Gradle
+      run: gradle :app:assembleDebug --stacktrace
 
     - name: Upload Debug APK Artifact
       uses: actions/upload-artifact@v4
