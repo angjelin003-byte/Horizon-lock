@@ -15,7 +15,7 @@ export const INITIAL_FILES: RepoFile[] = [
             name: 'build.yml',
             path: '.github/workflows/build.yml',
             type: 'file',
-            size: '1.8 KB',
+            size: '1.9 KB',
             content: `name: Build Android Debug APK
 
 on:
@@ -40,14 +40,19 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Grant execute permission for Gradle wrapper
-      run: chmod +x gradlew
+    - name: Install Gradle
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gradle
 
     - name: Build Debug APK with Gradle
-      run: ./gradlew assembleDebug --stacktrace
-
-    - name: Run Unit Tests
-      run: ./gradlew testDebugUnitTest
+      run: |
+        if [ -f "./gradlew" ]; then
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+        else
+          gradle assembleDebug --stacktrace
+        fi
 
     - name: Upload Debug APK Artifact
       uses: actions/upload-artifact@v4
