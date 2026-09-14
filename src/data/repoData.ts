@@ -40,55 +40,20 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Install Gradle
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gradle
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
 
-    - name: Build Debug APK with Gradle
-      run: |
-        if [ -f "./gradlew" ]; then
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
-        else
-          gradle assembleDebug --stacktrace
-        fi
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew || true
+
+    - name: Build Debug APK with Gradle Wrapper
+      run: ./gradlew assembleDebug --stacktrace
 
     - name: Upload Debug APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: s26-horizon-lock-debug-apk
         path: app/build/outputs/apk/debug/app-debug.apk`
-          },
-          {
-            name: 'android_ci.yml',
-            path: '.github/workflows/android_ci.yml',
-            type: 'file',
-            size: '1.4 KB',
-            content: `name: S26 Camera CI/CD Build
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
-    - name: Run Horizon Lock Unit Tests
-      run: ./gradlew testDebugUnitTest`
           }
         ]
       }
