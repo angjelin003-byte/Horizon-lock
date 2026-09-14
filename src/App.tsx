@@ -15,7 +15,7 @@ import { INITIAL_FILES, INITIAL_COMMITS, INITIAL_ISSUES } from './data/repoData'
 import { Smartphone, Sparkles, ShieldCheck, Download, CheckCircle2 } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('simulator'); // Default to simulator as it's the core interactive S26 feature requested
+  const [activeTab, setActiveTab] = useState('code'); // Default to GitHub code repository view
   const [starCount, setStarCount] = useState(1248);
   const [isStarred, setIsStarred] = useState(false);
   const [downloadModal, setDownloadModal] = useState(false);

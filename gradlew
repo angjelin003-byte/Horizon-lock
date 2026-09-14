@@ -6,7 +6,6 @@
 ##############################################################################
 
 # Attempt to set APP_HOME
-# Resolve links: $0 may be a link
 PRG="$0"
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
@@ -21,46 +20,27 @@ cd "$saved"
 APP_NAME="Gradle"
 APP_BASE_NAME=`basename "$0"`
 
-# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS.
-DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
-
-# Use the maximum available, or set MAX_FD to a fixed value
-if [ -n "$MAX_FD" ] ; then
-  DESCRIPTOR_LIMIT="$MAX_FD"
-fi
+# Add default JVM options here without problematic nested quotes
+DEFAULT_JVM_OPTS='-Xmx64m -Xms64m'
 
 # Locate java
 if [ -n "$JAVA_HOME" ] ; then
   if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
-    # IBM's JDK on AIX uses strange locations for the java executable
     JAVACMD="$JAVA_HOME/jre/sh/java"
   else
     JAVACMD="$JAVA_HOME/bin/java"
   fi
   if [ ! -x "$JAVACMD" ] ; then
-    die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
-Please set the variable in your environment to match the
-location of your Java installation."
+    echo "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME" >&2
+    exit 1
   fi
 else
   JAVACMD="java"
-  which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH."
-fi
-
-# Determine the Java version to use
-if [ -n "$JAVA_EXE" ] ; then
-  JAVACMD="$JAVA_EXE"
-fi
-
-# For Cygwin, switch paths to Windows format before running java
-if [ "$cygwin" = "true" ] ; then
-  APP_HOME=`cygpath --path --mixed "$APP_HOME"`
-  CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
-  JAVACMD=`cygpath --unix "$JAVACMD"`
+  which java >/dev/null 2>&1 || { echo "ERROR: JAVA_HOME is not set and no 'java' command could be found." >&2; exit 1; }
 fi
 
 # Execute Gradle
-exec "$JAVACMD" "$DEFAULT_JVM_OPTS" \
+exec "$JAVACMD" $DEFAULT_JVM_OPTS \
   -Dorg.gradle.appname="$APP_BASE_NAME" \
   -classpath "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" \
   org.gradle.wrapper.GradleWrapperMain "$@"
